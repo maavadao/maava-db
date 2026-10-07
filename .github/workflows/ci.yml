@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: mawadao
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 2s --health-timeout 2s --health-retries 15
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/mawadao
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply all migrations to an empty database
+        run: scripts/migrate.sh
+      - name: Re-running is a no-op
+        run: scripts/migrate.sh
