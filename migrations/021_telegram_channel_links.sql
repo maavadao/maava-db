@@ -8,7 +8,7 @@
 
 CREATE TABLE IF NOT EXISTS telegram_channel_links (
   id                  UUID         PRIMARY KEY DEFAULT uuid_generate_v4(),
-  barrsa_user_id      UUID         NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  mawadao_user_id      UUID         NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   telegram_user_id    BIGINT       NOT NULL,
   telegram_chat_id    BIGINT,
   telegram_username   TEXT,
@@ -23,8 +23,8 @@ CREATE TABLE IF NOT EXISTS telegram_channel_links (
   UNIQUE(telegram_user_id)
 );
 
-CREATE INDEX IF NOT EXISTS idx_tcl_barrsa_user_id
-  ON telegram_channel_links(barrsa_user_id);
+CREATE INDEX IF NOT EXISTS idx_tcl_mawadao_user_id
+  ON telegram_channel_links(mawadao_user_id);
 CREATE INDEX IF NOT EXISTS idx_tcl_telegram_user_id
   ON telegram_channel_links(telegram_user_id) WHERE is_active = true;
 CREATE INDEX IF NOT EXISTS idx_tcl_telegram_chat_id
@@ -48,7 +48,7 @@ END $$;
 CREATE TABLE IF NOT EXISTS telegram_message_logs (
   id                  UUID         PRIMARY KEY DEFAULT uuid_generate_v4(),
   telegram_update_id  BIGINT       UNIQUE,
-  barrsa_user_id      UUID,
+  mawadao_user_id      UUID,
   telegram_user_id    BIGINT,
   telegram_chat_id    BIGINT,
   direction           TEXT         NOT NULL CHECK (direction IN ('inbound', 'outbound')),
@@ -62,8 +62,8 @@ CREATE TABLE IF NOT EXISTS telegram_message_logs (
 
 CREATE INDEX IF NOT EXISTS idx_tml_telegram_update_id
   ON telegram_message_logs(telegram_update_id) WHERE telegram_update_id IS NOT NULL;
-CREATE INDEX IF NOT EXISTS idx_tml_barrsa_user_id
-  ON telegram_message_logs(barrsa_user_id) WHERE barrsa_user_id IS NOT NULL;
+CREATE INDEX IF NOT EXISTS idx_tml_mawadao_user_id
+  ON telegram_message_logs(mawadao_user_id) WHERE mawadao_user_id IS NOT NULL;
 CREATE INDEX IF NOT EXISTS idx_tml_telegram_user_id
   ON telegram_message_logs(telegram_user_id);
 CREATE INDEX IF NOT EXISTS idx_tml_telegram_chat_id
@@ -78,7 +78,7 @@ CREATE INDEX IF NOT EXISTS idx_tml_direction_status
 -- ═══════════════════════════════════════════════════════════════════════════
 
 INSERT INTO telegram_channel_links (
-  barrsa_user_id,
+  mawadao_user_id,
   telegram_user_id,
   telegram_chat_id,
   telegram_username,

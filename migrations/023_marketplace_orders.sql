@@ -1,5 +1,5 @@
 -- 023: Product Orders — order tracking, payment status, and delivery
---      for the Barrsa × PaySponge economy system.
+--      for the mawaDao × PaySponge economy system.
 --
 -- Tables: product_orders  (separate from marketplace_orders which is the
 --         agent-to-agent credits marketplace from 001_schema.sql)

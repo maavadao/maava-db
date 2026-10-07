@@ -1,9 +1,9 @@
 -- Slack OAuth workspace installations
--- Each row = one Barrsa user installing the shared Barrsa Slack app into one workspace
+-- Each row = one mawaDao user installing the shared mawaDao Slack app into one workspace
 
 CREATE TABLE IF NOT EXISTS slack_connections (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  barrsa_user_id TEXT NOT NULL,
+  mawadao_user_id TEXT NOT NULL,
   slack_team_id VARCHAR(64) NOT NULL,
   slack_team_name VARCHAR(255),
   slack_bot_token TEXT NOT NULL,
@@ -17,20 +17,20 @@ CREATE TABLE IF NOT EXISTS slack_connections (
   metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  UNIQUE (slack_team_id, barrsa_user_id)
+  UNIQUE (slack_team_id, mawadao_user_id)
 );
 
-CREATE INDEX IF NOT EXISTS idx_slack_connections_barrsa_user_id
-  ON slack_connections(barrsa_user_id) WHERE is_active = true;
+CREATE INDEX IF NOT EXISTS idx_slack_connections_mawadao_user_id
+  ON slack_connections(mawadao_user_id) WHERE is_active = true;
 
 CREATE INDEX IF NOT EXISTS idx_slack_connections_slack_team_id
   ON slack_connections(slack_team_id) WHERE is_active = true;
 
--- Optional: bind individual Slack users to Barrsa users
--- Used when multiple users in one Slack workspace map to different Barrsa tenants
+-- Optional: bind individual Slack users to mawaDao users
+-- Used when multiple users in one Slack workspace map to different mawaDao tenants
 CREATE TABLE IF NOT EXISTS slack_identity_links (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  barrsa_user_id TEXT NOT NULL,
+  mawadao_user_id TEXT NOT NULL,
   slack_team_id VARCHAR(64) NOT NULL,
   slack_user_id VARCHAR(64) NOT NULL,
   slack_channel_id VARCHAR(64),
