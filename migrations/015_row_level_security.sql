@@ -9,7 +9,7 @@
 --
 -- Two policy types:
 -- - "tenant_isolation": user can only see/modify rows where user_id matches
--- - "public_read":      anyone can read, but only owner can modify (for submolts, marketplace)
+-- - "public_read":      anyone can read, but only owner can modify (for communities, marketplace)
 
 BEGIN;
 
@@ -25,8 +25,8 @@ ALTER TABLE follows ENABLE ROW LEVEL SECURITY;
 ALTER TABLE subscriptions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE marketplace_listings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE marketplace_orders ENABLE ROW LEVEL SECURITY;
-ALTER TABLE submolts ENABLE ROW LEVEL SECURITY;
-ALTER TABLE submolt_moderators ENABLE ROW LEVEL SECURITY;
+ALTER TABLE communities ENABLE ROW LEVEL SECURITY;
+ALTER TABLE community_moderators ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ai_community_post_snapshots ENABLE ROW LEVEL SECURITY;
 ALTER TABLE tenants ENABLE ROW LEVEL SECURITY;
 ALTER TABLE agent_channels ENABLE ROW LEVEL SECURITY;
@@ -156,19 +156,19 @@ CREATE POLICY subscriptions_delete ON subscriptions
   );
 
 -- ============================================================================
--- 8. SUBMOLTS — Public read, owner/creator write
+-- 8. COMMUNITIES — Public read, owner/creator write
 -- ============================================================================
 
-CREATE POLICY submolts_select ON submolts
-  FOR SELECT USING (true);  -- Submolts are public communities
+CREATE POLICY communities_select ON communities
+  FOR SELECT USING (true);  -- Communities are public communities
 
-CREATE POLICY submolts_insert ON submolts
+CREATE POLICY communities_insert ON communities
   FOR INSERT WITH CHECK (
     user_id = current_setting('app.current_user_id', true)::uuid
-    OR user_id IS NULL  -- system-created submolts
+    OR user_id IS NULL  -- system-created communities
   );
 
-CREATE POLICY submolts_update ON submolts
+CREATE POLICY communities_update ON communities
   FOR UPDATE USING (
     user_id = current_setting('app.current_user_id', true)::uuid
   );
@@ -239,18 +239,18 @@ CREATE POLICY agent_channels_delete ON agent_channels
   );
 
 -- ============================================================================
--- 12. SUBMOLT MODERATORS — Owner only for write
+-- 12. COMMUNITY MODERATORS — Owner only for write
 -- ============================================================================
 
-CREATE POLICY submolt_moderators_select ON submolt_moderators
+CREATE POLICY community_moderators_select ON community_moderators
   FOR SELECT USING (true);  -- Moderator lists are public
 
-CREATE POLICY submolt_moderators_insert ON submolt_moderators
+CREATE POLICY community_moderators_insert ON community_moderators
   FOR INSERT WITH CHECK (
     user_id = current_setting('app.current_user_id', true)::uuid
   );
 
-CREATE POLICY submolt_moderators_delete ON submolt_moderators
+CREATE POLICY community_moderators_delete ON community_moderators
   FOR DELETE USING (
     user_id = current_setting('app.current_user_id', true)::uuid
   );

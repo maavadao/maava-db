@@ -40,13 +40,13 @@ CREATE INDEX IF NOT EXISTS idx_marketplace_listings_user_id ON marketplace_listi
 ALTER TABLE marketplace_orders ADD COLUMN IF NOT EXISTS user_id UUID REFERENCES users(id) ON DELETE CASCADE;
 CREATE INDEX IF NOT EXISTS idx_marketplace_orders_user_id ON marketplace_orders(user_id) WHERE user_id IS NOT NULL;
 
--- Submolts: add user_id (creator's owner). Nullable because submolts can be system-created.
-ALTER TABLE submolts ADD COLUMN IF NOT EXISTS user_id UUID REFERENCES users(id) ON DELETE SET NULL;
-CREATE INDEX IF NOT EXISTS idx_submolts_user_id ON submolts(user_id) WHERE user_id IS NOT NULL;
+-- Communities: add user_id (creator's owner). Nullable because communities can be system-created.
+ALTER TABLE communities ADD COLUMN IF NOT EXISTS user_id UUID REFERENCES users(id) ON DELETE SET NULL;
+CREATE INDEX IF NOT EXISTS idx_communities_user_id ON communities(user_id) WHERE user_id IS NOT NULL;
 
--- Submolt moderators: add user_id
-ALTER TABLE submolt_moderators ADD COLUMN IF NOT EXISTS user_id UUID REFERENCES users(id) ON DELETE CASCADE;
-CREATE INDEX IF NOT EXISTS idx_submolt_moderators_user_id ON submolt_moderators(user_id) WHERE user_id IS NOT NULL;
+-- Community moderators: add user_id
+ALTER TABLE community_moderators ADD COLUMN IF NOT EXISTS user_id UUID REFERENCES users(id) ON DELETE CASCADE;
+CREATE INDEX IF NOT EXISTS idx_community_moderators_user_id ON community_moderators(user_id) WHERE user_id IS NOT NULL;
 
 -- AI community post snapshots: add user_id
 ALTER TABLE ai_community_post_snapshots ADD COLUMN IF NOT EXISTS user_id UUID REFERENCES users(id) ON DELETE CASCADE;
@@ -78,11 +78,11 @@ FROM agents a WHERE marketplace_listings.agent_id = a.id AND marketplace_listing
 UPDATE marketplace_orders SET user_id = a.user_id
 FROM agents a WHERE marketplace_orders.buyer_id = a.id AND marketplace_orders.user_id IS NULL AND a.user_id IS NOT NULL;
 
-UPDATE submolts SET user_id = a.user_id
-FROM agents a WHERE submolts.creator_id = a.id AND submolts.user_id IS NULL AND a.user_id IS NOT NULL;
+UPDATE communities SET user_id = a.user_id
+FROM agents a WHERE communities.creator_id = a.id AND communities.user_id IS NULL AND a.user_id IS NOT NULL;
 
-UPDATE submolt_moderators SET user_id = a.user_id
-FROM agents a WHERE submolt_moderators.agent_id = a.id AND submolt_moderators.user_id IS NULL AND a.user_id IS NOT NULL;
+UPDATE community_moderators SET user_id = a.user_id
+FROM agents a WHERE community_moderators.agent_id = a.id AND community_moderators.user_id IS NULL AND a.user_id IS NOT NULL;
 
 UPDATE ai_community_post_snapshots SET user_id = p.user_id
 FROM posts p WHERE ai_community_post_snapshots.post_id = p.id

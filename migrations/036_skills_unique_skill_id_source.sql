@@ -1,6 +1,6 @@
 -- 036_skills_unique_skill_id_source.sql
 --
--- The tenant-dashboard /api/skills route runs:
+-- The mawadao-agent-dashboard /api/skills route runs:
 --   INSERT INTO skills (...) VALUES (...) ON CONFLICT (skill_id, source) DO NOTHING
 -- but the skills table only has a UNIQUE on the surrogate `id` column, so
 -- Postgres fails with: "there is no unique or exclusion constraint matching

@@ -29,8 +29,8 @@ ALTER TABLE follows FORCE ROW LEVEL SECURITY;
 ALTER TABLE subscriptions FORCE ROW LEVEL SECURITY;
 ALTER TABLE marketplace_listings FORCE ROW LEVEL SECURITY;
 ALTER TABLE marketplace_orders FORCE ROW LEVEL SECURITY;
-ALTER TABLE submolts FORCE ROW LEVEL SECURITY;
-ALTER TABLE submolt_moderators FORCE ROW LEVEL SECURITY;
+ALTER TABLE communities FORCE ROW LEVEL SECURITY;
+ALTER TABLE community_moderators FORCE ROW LEVEL SECURITY;
 ALTER TABLE ai_community_post_snapshots FORCE ROW LEVEL SECURITY;
 ALTER TABLE tenants FORCE ROW LEVEL SECURITY;
 ALTER TABLE agent_channels FORCE ROW LEVEL SECURITY;
@@ -173,21 +173,21 @@ CREATE POLICY subscriptions_delete ON subscriptions
     user_id = current_user_id()
   );
 
--- === SUBMOLTS ===
-DROP POLICY IF EXISTS submolts_select ON submolts;
-DROP POLICY IF EXISTS submolts_insert ON submolts;
-DROP POLICY IF EXISTS submolts_update ON submolts;
+-- === COMMUNITIES ===
+DROP POLICY IF EXISTS communities_select ON communities;
+DROP POLICY IF EXISTS communities_insert ON communities;
+DROP POLICY IF EXISTS communities_update ON communities;
 
-CREATE POLICY submolts_select ON submolts
+CREATE POLICY communities_select ON communities
   FOR SELECT USING (true);
 
-CREATE POLICY submolts_insert ON submolts
+CREATE POLICY communities_insert ON communities
   FOR INSERT WITH CHECK (
     user_id = current_user_id()
-    OR user_id IS NULL  -- system-created submolts
+    OR user_id IS NULL  -- system-created communities
   );
 
-CREATE POLICY submolts_update ON submolts
+CREATE POLICY communities_update ON communities
   FOR UPDATE USING (
     user_id = current_user_id()
   );
@@ -264,20 +264,20 @@ CREATE POLICY agent_channels_delete ON agent_channels
     user_id = current_user_id()
   );
 
--- === SUBMOLT MODERATORS ===
-DROP POLICY IF EXISTS submolt_moderators_select ON submolt_moderators;
-DROP POLICY IF EXISTS submolt_moderators_insert ON submolt_moderators;
-DROP POLICY IF EXISTS submolt_moderators_delete ON submolt_moderators;
+-- === COMMUNITY MODERATORS ===
+DROP POLICY IF EXISTS community_moderators_select ON community_moderators;
+DROP POLICY IF EXISTS community_moderators_insert ON community_moderators;
+DROP POLICY IF EXISTS community_moderators_delete ON community_moderators;
 
-CREATE POLICY submolt_moderators_select ON submolt_moderators
+CREATE POLICY community_moderators_select ON community_moderators
   FOR SELECT USING (true);
 
-CREATE POLICY submolt_moderators_insert ON submolt_moderators
+CREATE POLICY community_moderators_insert ON community_moderators
   FOR INSERT WITH CHECK (
     user_id = current_user_id()
   );
 
-CREATE POLICY submolt_moderators_delete ON submolt_moderators
+CREATE POLICY community_moderators_delete ON community_moderators
   FOR DELETE USING (
     user_id = current_user_id()
   );

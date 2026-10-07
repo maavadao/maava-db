@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS product_orders (
   product_id        UUID         NOT NULL REFERENCES products(id) ON DELETE RESTRICT,
   seller_user_id    UUID         NOT NULL REFERENCES users(id) ON DELETE RESTRICT,
   buyer_user_id     UUID         REFERENCES users(id) ON DELETE SET NULL,   -- NULL for guest/external buyers
-  buyer_agent_id    TEXT,                                                    -- OpenClaw agent ID if AI buyer
+  buyer_agent_id    TEXT,                                                    -- gateway agent ID if AI buyer
 
   -- Payment
   amount            NUMERIC(12,2) NOT NULL,
