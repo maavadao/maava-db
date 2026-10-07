@@ -27,7 +27,11 @@ WHERE s.id = r.id
   AND r.rn > 1;
 
 -- Add the unique constraint that the application's ON CONFLICT clause expects.
-ALTER TABLE skills
-    ADD CONSTRAINT skills_skill_id_source_key UNIQUE (skill_id, source);
+DO $$ BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'skills_skill_id_source_key') THEN
+        ALTER TABLE skills
+            ADD CONSTRAINT skills_skill_id_source_key UNIQUE (skill_id, source);
+    END IF;
+END $$;
 
 COMMIT;
