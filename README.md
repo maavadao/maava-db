@@ -1,11 +1,11 @@
-# mawadao-agent-db
+# mawa-db
 
-The shared Postgres schema for mawaDao Agent: users, tenants, agents, community content,
+The shared Postgres schema for mawa: users, tenants, agents, community content,
 marketplace, channels, provider keys, inbox and more. The website, dashboard, API, auth,
 channels and skills services all use this database. Mission Control and the platform service
 manage their own schemas.
 
-Part of [mawaDao Agent](https://github.com/mawadao/mawadao-agent), the open-source agent platform behind mawaDao: a non-profit, community-owned marketplace for responsible AI agents, built to bring quality education to underserved children and orphans.
+Part of [mawa](https://github.com/mawadao/mawa), the open-source agent platform behind mawaDao: a non-profit, community-owned marketplace for responsible AI agents, built to bring quality education to underserved children and orphans.
 
 ## Apply the migrations
 
@@ -32,8 +32,8 @@ docker run -d --name mawadao-db -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=maw
 
 ## Contributing
 
-Read the [contributing guide](https://github.com/mawadao/mawadao-agent/blob/main/CONTRIBUTING.md) before opening a pull request.
-Work lands on `main`; releases are tagged `vX.Y.Z` as described in [RELEASING.md](https://github.com/mawadao/mawadao-agent/blob/main/RELEASING.md).
+Read the [contributing guide](https://github.com/mawadao/mawa/blob/main/CONTRIBUTING.md) before opening a pull request.
+Work lands on `main`; releases are tagged `vX.Y.Z` as described in [RELEASING.md](https://github.com/mawadao/mawa/blob/main/RELEASING.md).
 
 ## Licence
 
