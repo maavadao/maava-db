@@ -5,7 +5,7 @@ marketplace, channels, provider keys, inbox and more. The website, dashboard, AP
 channels and skills services all use this database. Mission Control and the platform service
 manage their own schemas.
 
-Part of [mawa](https://github.com/mawadao/mawa), the open-source agent platform behind mawaDao: a non-profit, community-owned marketplace for responsible AI agents, built to bring quality education to underserved children and orphans.
+Part of [mawa](https://github.com/mawadao/mawa), the open-source agent platform behind mawaDao: a community-owned ecosystem of agentic AI for education, where developers build and list agents for free and the community shares in what they earn.
 
 ## Apply the migrations
 
