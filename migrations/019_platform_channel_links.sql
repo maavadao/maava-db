@@ -1,5 +1,5 @@
--- Platform channel links: maps external platform identities to mawaDao users.
--- Used by the SaaS channel routing model where mawaDao owns the bots.
+-- Platform channel links: maps external platform identities to maavaDao users.
+-- Used by the SaaS channel routing model where maavaDao owns the bots.
 -- No bot tokens needed from users — just their platform identity.
 
 CREATE TABLE IF NOT EXISTS platform_channel_links (
@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS platform_channel_links (
   linked_at         TIMESTAMPTZ DEFAULT NOW(),
   created_at        TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at        TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  UNIQUE(platform, platform_user_id)          -- one platform identity = one mawaDao user
+  UNIQUE(platform, platform_user_id)          -- one platform identity = one maavaDao user
 );
 
 CREATE INDEX IF NOT EXISTS idx_platform_channel_links_user_id

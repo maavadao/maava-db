@@ -1,5 +1,5 @@
 -- Temporary link tokens for the deep-link flow.
--- User generates a token on the dashboard, opens t.me/mawadao_bot?start=TOKEN,
+-- User generates a token on the dashboard, opens t.me/maavadao_bot?start=TOKEN,
 -- bot validates the token and creates the real platform_channel_links entry.
 
 CREATE TABLE IF NOT EXISTS platform_link_tokens (

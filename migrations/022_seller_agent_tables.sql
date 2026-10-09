@@ -1,4 +1,4 @@
--- 022: mawaDao Seller Agent — full data model for product listing,
+-- 022: maavaDao Seller Agent — full data model for product listing,
 --      social publishing, approval workflows, and recurring promotion.
 --
 -- Tables: seller_profiles, seller_categories, products, product_versions,

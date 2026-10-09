@@ -1,7 +1,7 @@
 -- 035: Scheduled deliveries (campaign cron jobs)
 -- Backs the [SCHEDULE_DELIVERY] action block. Rows are materialized by
 -- ActionExecutorService and dispatched once-per-minute by the in-process
--- ScheduledDeliveryWorker living in the mawa-api.
+-- ScheduledDeliveryWorker living in the maava-api.
 
 CREATE TABLE IF NOT EXISTS scheduled_deliveries (
   id                UUID PRIMARY KEY DEFAULT gen_random_uuid(),

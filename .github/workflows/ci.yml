@@ -13,13 +13,13 @@ jobs:
         image: postgres:16
         env:
           POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: mawadao
+          POSTGRES_DB: maavadao
         ports: ["5432:5432"]
         options: >-
           --health-cmd "pg_isready -U postgres"
           --health-interval 2s --health-timeout 2s --health-retries 15
     env:
-      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/mawadao
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/maavadao
     steps:
       - uses: actions/checkout@v4
       - name: Apply all migrations to an empty database
